@@ -3,10 +3,13 @@
 import os
 import sys
 
+from django.core.mail import send_mail
+
 
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'industrial_safety_app.settings')
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -20,3 +23,10 @@ def main():
 
 if __name__ == '__main__':
     main()
+    send_mail(
+        "hii",
+        'This is a trial mail.',
+        'srushti.johari@cumminscollege.in',
+        ['shreyaparasagrawal@gmail.com'],  # Corrected to a list
+        fail_silently=False
+    )

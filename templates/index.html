@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Video</title>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Logo and Name -->
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo" class="logo">
+            <h1 class="site-name">Industrial Safety System</h1>
+        </div>
+
+        <!-- Form Section -->
+        <form class="form" id="video-upload-form">
+            <span class="form-title">Upload your video</span>
+            <p class="form-paragraph">File should be a video (e.g., .mp4, .avi, .webm, .mov)</p>
+            <label for="file-input" class="drop-container">
+                <span class="drop-title">Drop video files here</span>
+                or
+                <input type="file" accept="video/mp4,video/avi,video/webm,video/mov" required id="file-input">
+            </label>
+
+            <!-- Error message for invalid file type -->
+            <p id="error-message" style="color: red; display: none;">Please upload a valid video file (.mp4, .avi, .webm, .mov).</p>
+        </form>
+
+        <!-- Submit Button -->
+        <button id="submit-btn" class="btn" disabled>
+            <svg height="24" width="24" fill="#FFFFFF" viewBox="0 0 24 24" data-name="Layer 1" id="Layer_1" class="sparkle">
+                <path d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z"></path>
+            </svg>
+            <span class="text">Submit</span>
+        </button>
+
+    </div>
+
+    <script>
+        // File input element
+        const fileInput = document.getElementById('file-input');
+        // Submit button
+        const submitBtn = document.getElementById('submit-btn');
+        // Error message element
+        const errorMessage = document.getElementById('error-message');
+
+        // Allowed video formats
+        const validTypes = ['video/mp4', 'video/avi', 'video/webm', 'video/mov'];
+
+        // Event listener for file input validation
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0]; // Get the selected file
+
+            if (file) {
+                const fileType = file.type; // Get the file type
+                // Check if the file is not a valid video type
+                if (!validTypes.includes(fileType)) {
+                    // Display the error message and reset the input field
+                    errorMessage.style.display = 'block';
+                    fileInput.value = ''; // Clear the file input
+                    submitBtn.disabled = true; // Disable the submit button
+                } else {
+                    // Hide the error message if the file is valid
+                    errorMessage.style.display = 'none';
+                    submitBtn.disabled = false; // Enable the submit button
+                }
+            }
+        });
+
+        // Event listener for Submit button click
+        submitBtn.addEventListener('click', function() {
+            const file = fileInput.files[0]; // Get the selected file
+            if (!file) {
+                alert('Please upload a video before clicking Submit.');
+                return; // Exit the function if no file is selected
+            }
+
+            // If the file is valid, redirect to success.html
+            window.location.href = 'success.html'; // Redirect to success page
+        });
+    </script>
+
+</body>
+</html>
