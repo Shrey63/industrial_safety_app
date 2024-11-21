@@ -1,34 +1,138 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Success</title>
-    <link rel="stylesheet" href="style.css">
+     <title>Shyam Global's Safety App</title>
+    <link rel="icon" href="{% static 'industrial_safety_app/logo.png' %}" type="image/png">
+
+    <style>
+        /* From Uiverse.io by uxRakhal */
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo {
+            width: 100px;
+            height: auto;
+        }
+
+.image {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #e2feee;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  animation: animate .6s linear alternate-reverse infinite;
+  transition: .6s ease;
+}
+
+.image svg {
+  color: #0afa2a;
+  width: 2rem;
+  height: 2rem;
+}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            overflow: hidden;
+            position: relative;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .dismiss {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .content {
+            margin-top: 20px;
+        }
+
+        .title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .message {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .home-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .home-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 
     <div class="card">
-        <button class="dismiss" type="button">×</button>
-        <div class="header">
-            <div class="div_image_v">
-                <div class="image">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                        <g id="SVGRepo_iconCarrier">
-                            <path d="M20 7L9.00004 18L3.99994 13" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </g>
-                    </svg>
-                </div>
-            </div>
-            <div class="content">
-                <span class="title">Success!</span>
-                <p class="message">Your video has been successfully processed and uploaded.</p>
-                <button onclick="window.location.href = 'index.html';" class="btn">Go Back</button>
-            </div>
+         <div class="logo-container">
+             <img src="{% static 'industrial_safety_app/logo.png' %}" alt="Logo" class="logo">
+{#            <h1 class="site-name">Industrial Safety System</h1>#}
+        </div>
+{#        <button class="dismiss" onclick="closeMessage()">×</button>#}
+        <div class="image">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 7L9.00004 18L3.99994 13" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+      </div>
+
+        <div class="content">
+            <h1 class="title">There are no check points missed!</h1>
+            <p class="message">Your file has been uploaded successfully. You can proceed with your next action.</p>
+            <button class="home-button" onclick='window.location.href="home"'>Go to Homepage</button>
         </div>
     </div>
 
+    <script>
+        function closeMessage() {
+            document.querySelector('.card').style.display = 'none';
+        }
+    </script>
 </body>
 </html>

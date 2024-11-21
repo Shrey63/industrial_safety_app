@@ -17,6 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from industrial_safety_app import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.home, name='home'),
+    path('success/', views.success, name='success'),  # URL for success page
+    path('failure/', views.failure, name='failure'),  # URL for failure page
+    path('notify/', views.notify, name='notify'),    # URL for notify page
 ]

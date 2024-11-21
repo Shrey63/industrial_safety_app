@@ -1,17 +1,187 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Video</title>
+    <title>Shyam Global's Safety App</title>
+    <link rel="icon" href="{% static 'industrial_safety_app/logo.png' %}" type="image/png">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Center the container */
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            padding-top: 40px;
+            background-color: #f4f4f4;
+        }
+
+        /* Logo and Name Styling */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo {
+            width: 100px;
+            height: auto;
+        }
+
+        .site-name {
+            font-size: 2rem;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        /* Form Styling */
+        .form {
+            background-color: #fff;
+            box-shadow: 0 10px 60px rgb(218, 229, 255);
+            border: 1px solid rgb(159, 159, 160);
+            border-radius: 20px;
+            padding: 2rem .7rem .7rem .7rem;
+            text-align: center;
+            font-size: 1.125rem;
+            max-width: 320px;
+        }
+
+        .form-title {
+            color: #000000;
+            font-size: 1.8rem;
+            font-weight: 500;
+        }
+
+        .form-paragraph {
+            margin-top: 10px;
+            font-size: 0.9375rem;
+            color: rgb(105, 105, 105);
+        }
+
+        .drop-container {
+            background-color: #fff;
+            position: relative;
+            display: flex;
+            gap: 10px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            margin-top: 2.1875rem;
+            border-radius: 10px;
+            border: 2px dashed rgb(171, 202, 255);
+            color: #444;
+            cursor: pointer;
+            transition: background .2s ease-in-out, border .2s ease-in-out;
+        }
+
+        .drop-container:hover {
+            background: rgba(0, 140, 255, 0.164);
+            border-color: rgba(17, 17, 17, 0.616);
+        }
+
+        .drop-container:hover .drop-title {
+            color: #222;
+        }
+
+        .drop-title {
+            color: #444;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            transition: color .2s ease-in-out;
+        }
+
+        #file-input {
+            width: 350px;
+            max-width: 100%;
+            color: #444;
+            padding: 2px;
+            background: #fff;
+            border-radius: 10px;
+            border: 1px solid rgba(8, 8, 8, 0.288);
+        }
+
+        #file-input::file-selector-button {
+            margin-right: 20px;
+            border: none;
+            background: #084cdf;
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            transition: background .2s ease-in-out;
+        }
+
+        #file-input::file-selector-button:hover {
+            background: #0d45a5;
+        }
+
+        /* Button Styling */
+        .btn {
+            background-color: #084cdf;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+            margin-top: 15px;
+        }
+
+        .btn .sparkle {
+            margin-right: 10px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .btn:hover {
+            background-color: #0d45a5;
+            transform: scale(1.05);
+        }
+
+        .btn:hover .sparkle {
+            transform: rotate(360deg);
+        }
+
+        .btn .text {
+            font-size: 1rem;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        #error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
-
     <div class="container">
         <!-- Logo and Name -->
         <div class="logo-container">
-            <img src="logo.png" alt="Logo" class="logo">
+             <img src="{% static 'industrial_safety_app/logo.png' %}" alt="Logo" class="logo">
             <h1 class="site-name">Industrial Safety System</h1>
         </div>
 
@@ -24,9 +194,7 @@
                 or
                 <input type="file" accept="video/mp4,video/avi,video/webm,video/mov" required id="file-input">
             </label>
-
-            <!-- Error message for invalid file type -->
-            <p id="error-message" style="color: red; display: none;">Please upload a valid video file (.mp4, .avi, .webm, .mov).</p>
+            <p id="error-message">Please upload a valid video file (.mp4, .avi, .webm, .mov).</p>
         </form>
 
         <!-- Submit Button -->
@@ -36,52 +204,37 @@
             </svg>
             <span class="text">Submit</span>
         </button>
-
     </div>
 
     <script>
-        // File input element
         const fileInput = document.getElementById('file-input');
-        // Submit button
         const submitBtn = document.getElementById('submit-btn');
-        // Error message element
         const errorMessage = document.getElementById('error-message');
-
-        // Allowed video formats
         const validTypes = ['video/mp4', 'video/avi', 'video/webm', 'video/mov'];
 
-        // Event listener for file input validation
         fileInput.addEventListener('change', function(event) {
-            const file = event.target.files[0]; // Get the selected file
-
+            const file = event.target.files[0];
             if (file) {
-                const fileType = file.type; // Get the file type
-                // Check if the file is not a valid video type
+                const fileType = file.type;
                 if (!validTypes.includes(fileType)) {
-                    // Display the error message and reset the input field
                     errorMessage.style.display = 'block';
-                    fileInput.value = ''; // Clear the file input
-                    submitBtn.disabled = true; // Disable the submit button
+                    fileInput.value = '';
+                    submitBtn.disabled = true;
                 } else {
-                    // Hide the error message if the file is valid
                     errorMessage.style.display = 'none';
-                    submitBtn.disabled = false; // Enable the submit button
+                    submitBtn.disabled = false;
                 }
             }
         });
 
-        // Event listener for Submit button click
         submitBtn.addEventListener('click', function() {
-            const file = fileInput.files[0]; // Get the selected file
+            const file = fileInput.files[0];
             if (!file) {
                 alert('Please upload a video before clicking Submit.');
-                return; // Exit the function if no file is selected
+                return;
             }
-
-            // If the file is valid, redirect to success.html
-            window.location.href = 'success.html'; // Redirect to success page
+            window.location.href = 'success.html';
         });
     </script>
-
 </body>
 </html>
