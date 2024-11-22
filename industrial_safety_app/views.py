@@ -1,6 +1,11 @@
 from django.shortcuts import render
 from .utils import *
+from .model_runner import run_yolov9_model,helmet_detection
 def home(request):
+    # result=run_yolov9_model('../../1.jpg',"../../pt/helmet.pt")
+    result=run_yolov9_model(r"C:\Users\shrey\PycharmProjects\industrial_safety_app\industrial_safety_app\1.jpg",'C:\\Users\\shrey\\PycharmProjects\\industrial_safety_app\\industrial_safety_app\\pt\\helmet.pt')
+    print(f"Result saved at: {result}")
+    print(f"Helmet Detection Status: {helmet_detection}")
     return render(request, "index.html")
 
 def success(request):
