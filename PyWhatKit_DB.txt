@@ -46,3 +46,21 @@ Group ID: HkVyZybIpy2GWkYdzH914u
 Image: C:\Users\shrey\PycharmProjects\industrial_safety_app\industrial_safety_app\static\industrial_safety_app\no-mask.jpg
 Caption: ⚠️ Safety Alert: Mask MissingA mask violation has been detected. Masks are vital to protect against dust and harmful chemicals. Ensure compliance immediately to avoid health risks such as respiratory issues or allergic reactions.
 --------------------
+Date: 23/11/2024
+Time: 17:29
+Group ID: FJjIC6Bobxu5tXLub7wqiN
+Image: C:\Users\shrey\PycharmProjects\industrial_safety_app\industrial_safety_app\output_result\no-helmet\1.jpg
+Caption: ⚠️ Safety Alert: Helmet MissingA violation has been detected: Helmets are crucial for head protection. Ensure compliance immediately to avoid severe head injuries or trauma.
+--------------------
+Date: 23/11/2024
+Time: 17:36
+Group ID: FJjIC6Bobxu5tXLub7wqiN
+Image: C:\Users\shrey\PycharmProjects\industrial_safety_app\industrial_safety_app\output_result\no-helmet\1.jpg
+Caption: ⚠️ Safety Alert: Helmet MissingA violation has been detected: Helmets are crucial for head protection. Ensure compliance immediately to avoid severe head injuries or trauma.
+--------------------
+Date: 23/11/2024
+Time: 17:41
+Group ID: FJjIC6Bobxu5tXLub7wqiN
+Image: C:\Users\shrey\PycharmProjects\industrial_safety_app\industrial_safety_app\output_result\no-helmet\1.jpg
+Caption: ⚠️ Safety Alert: Helmet MissingA violation has been detected: Helmets are crucial for head protection. Ensure compliance immediately to avoid severe head injuries or trauma.
+--------------------

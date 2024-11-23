@@ -87,7 +87,7 @@ VIOLATION_MESSAGES = {
 }
 
 
-def send_email(subject, message, recipient):
+def send_email(subject, message, recipient,path):
     """Send email notifications."""
     try:
         email = EmailMessage(
@@ -97,12 +97,9 @@ def send_email(subject, message, recipient):
             to=[recipient],
         )
 
-        # Build the path to the static image
-        image_path = os.path.join(settings.BASE_DIR, 'industrial_safety_app', 'static', 'industrial_safety_app',
-                                  'no-mask.jpg')
 
         # Attach the image
-        with open(image_path, 'rb') as f:
+        with open(path, 'rb') as f:
             email.attach('no-mask.jpg', f.read(), 'image/jpeg')
 
         # Send the email

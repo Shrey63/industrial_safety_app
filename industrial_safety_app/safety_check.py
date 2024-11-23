@@ -1,18 +1,6 @@
 import pickle
 from .utils import send_email, send_whatsapp_message, send_website_notification  # Assuming you have these functions
 
-# Load all five models
-with open('industrial_safety_app/ml_model/mask_model.pkl', 'rb') as file:
-    mask_model = pickle.load(file)
-with open('industrial_safety_app/ml_model/apron_model.pkl', 'rb') as file:
-    apron_model = pickle.load(file)
-with open('industrial_safety_app/ml_model/shoes_model.pkl', 'rb') as file:
-    shoes_model = pickle.load(file)
-with open('industrial_safety_app/ml_model/hand_gloves_model.pkl', 'rb') as file:
-    hand_gloves_model = pickle.load(file)
-with open('industrial_safety_app/ml_model/helmet_model.pkl', 'rb') as file:
-    helmet_model = pickle.load(file)
-
 # Function to check all safety precautions
 def check_safety(input_data):
     """
