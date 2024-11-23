@@ -23,10 +23,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-    send_mail(
-        "hii",
-        'This is a trial mail.',
-        'srushti.johari@cumminscollege.in',
-        ['shreyaparasagrawal@gmail.com'],  # Corrected to a list
-        fail_silently=False
-    )
+

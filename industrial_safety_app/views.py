@@ -1,11 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .utils import *
 from .model_runner import run_yolov9_model,helmet_detection
 def home(request):
-    # result=run_yolov9_model('../../1.jpg',"../../pt/helmet.pt")
-    result=run_yolov9_model(r"C:\Users\shrey\PycharmProjects\industrial_safety_app\industrial_safety_app\1.jpg",'C:\\Users\\shrey\\PycharmProjects\\industrial_safety_app\\industrial_safety_app\\pt\\helmet.pt')
-    print(f"Result saved at: {result}")
-    print(f"Helmet Detection Status: {helmet_detection}")
+    helmet_detection=run_yolov9_model(r'..\..\input_data\1.jpg',r'..\..\pt\helmet.pt')
+    # helmet_detection=run_yolov9_model('1.jpg', 'C:\\Users\\shrey\\PycharmProjects\\industrial_safety_app\\industrial_safety_app\\pt\\helmet.pt')
+    print(f"Result saved at: {helmet_detection}")
+    if helmet_detection==0:
+        violation_type = "helmet"
+        # Redirect to the notify view with the violation_type as a query parameter
+        return redirect(f"/notify/?violation_type={violation_type}")
     return render(request, "index.html")
 
 def success(request):
@@ -31,7 +34,7 @@ def notify(request):
 
     # Dummy data for now, to be replaced with dynamic data later
     email_recipient = "shreya.agrawal@cumminscollege.in"
-    whatsapp_group_id = "HkVyZybIpy2GWkYdzH914u"
+    whatsapp_group_id = "FJjIC6Bobxu5tXLub7wqiN"
     image_filename = "no-mask.jpg"
 
     # Generate encryption key

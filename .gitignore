@@ -1,0 +1,11 @@
+# Ignore the lib directory and its contents
+lib/
+
+# Ignore virtual environments
+.venv/
+
+# Ignore Python bytecode files
+__pycache__/
+
+# Ignore Jupyter notebook checkpoints
+.ipynb_checkpoints/
