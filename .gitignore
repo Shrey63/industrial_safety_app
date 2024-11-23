@@ -1,6 +1,4 @@
-# Ignore the lib directory and its contents
-lib/
-
+.gitignore/
 # Ignore virtual environments
 .venv/
 
@@ -9,3 +7,5 @@ __pycache__/
 
 # Ignore Jupyter notebook checkpoints
 .ipynb_checkpoints/
+
+industrial_safety_app/ml_models
