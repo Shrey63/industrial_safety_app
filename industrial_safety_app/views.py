@@ -2,27 +2,37 @@ from django.shortcuts import render, redirect
 from .utils import *
 from .model_runner import *
 import time
+import glob
+
 def home(request):
     # Run Helmet Detection Model
-    image_path=r'..\..\1.jpg'
-    helmet_detection = run_model(image_path, r'..\..\pt\helmet.pt', "no-helmet")
-    if helmet_detection==0:
-        request.session["violation_type"] = "helmet"
-        request.session["image_path"] = f"industrial_safety_app\\output_result\\no-helmet\\{os.path.basename(os.path.normpath(image_path))}"
-        return redirect(f"/notify/")
+    folder_path = r'..\..\input_data'
+    # files = glob.glob(os.path.join(folder_path, "*.*"))  # Match all files
+    # image_path=max(files, key=os.path.getmtime) if files else None
+    # try:
+    image_path = get_latest_image(folder_path)
+    print(f"Latest image path: {image_path}")
+    # except FileNotFoundError as e:
+    #     print(e)
 
+    helmet_detection = run_model(image_path, r'..\..\pt\helmet.pt', "no-helmet")
+    # if helmet_detection==0:
+    #     request.session["violation_type"] = "helmet"
+    #     request.session["image_path"] = f"industrial_safety_app\\output_result\\no-helmet\\{os.path.basename(os.path.normpath(image_path))}"
+    #     return redirect(f"/notify/")
+    print(helmet_detection)
     # Run Shoes Detection Model
     # shoes_detection = run_model(r'..\..\11.jpg', r'..\..\pt\shoes.pt', "no-shoes")
 
     # Print the detection results
     # print(f"Helmet Detection Result: {helmet_detection}")
     # print(f"Shoes Detection Result: {shoes_detection}")
-    # helmet_detection=run_helmet_model(r'..\..\1.jpg',r'..\..\pt\helmet.pt')
+    # helmet_detection=run_helmet_model(r'..\..\12.jpg',r'..\..\pt\helmet.pt')
     # time.sleep(40)
     # shoes_detection=run_shoes_model(r'..\..\13.jpeg',r'..\..\pt\shoes.pt')
 
 
-    # helmet_detection=run_yolov9_model('1.jpg', 'C:\\Users\\shrey\\PycharmProjects\\industrial_safety_app\\industrial_safety_app\\pt\\helmet.pt')
+    # helmet_detection=run_yolov9_model('12.jpg', 'C:\\Users\\shrey\\PycharmProjects\\industrial_safety_app\\industrial_safety_app\\pt\\helmet.pt')
 
     # if helmet_detection==0:
     #     violation_type = "helmet"
@@ -85,4 +95,14 @@ def notify(request):
     # Render the notifier page with the notification
     return render(request, "notifier.html", context)
 
+
+def get_latest_image(folder_name):
+    # Get all files in the folder
+    folder_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),"input_data")
+    files = glob.glob(os.path.join(folder_path, "*.*"))
+    # Ensure files exist before finding the latest one
+    if not files:
+        raise FileNotFoundError(f"No files found in the folder: {os.path.abspath(folder_path)}")
+    # Return the latest file path
+    return max(files, key=os.path.getmtime)
 
