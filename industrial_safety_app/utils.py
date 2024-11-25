@@ -100,7 +100,7 @@ def send_email(subject, message, recipient,path):
 
         # Attach the image
         with open(path, 'rb') as f:
-            email.attach('no-mask.jpg', f.read(), 'image/jpeg')
+            email.attach(os.path.basename(path), f.read(), 'image/jpeg')
 
         # Send the email
         email.send(fail_silently=False)

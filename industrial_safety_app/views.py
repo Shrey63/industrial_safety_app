@@ -6,20 +6,20 @@ import glob
 
 def home(request):
     # Run Helmet Detection Model
-    folder_path = r'..\..\input_data'
+    folder_name = "input_data"
     # files = glob.glob(os.path.join(folder_path, "*.*"))  # Match all files
     # image_path=max(files, key=os.path.getmtime) if files else None
     # try:
-    image_path = get_latest_image(folder_path)
+    image_path = get_latest_image(folder_name)
     print(f"Latest image path: {image_path}")
     # except FileNotFoundError as e:
     #     print(e)
-
-    helmet_detection = run_model(image_path, r'..\..\pt\helmet.pt', "no-helmet")
-    # if helmet_detection==0:
-    #     request.session["violation_type"] = "helmet"
-    #     request.session["image_path"] = f"industrial_safety_app\\output_result\\no-helmet\\{os.path.basename(os.path.normpath(image_path))}"
-    #     return redirect(f"/notify/")
+    detection_keyword="no-helmet"
+    helmet_detection = run_model(image_path, r'..\..\pt\helmet.pt', detection_keyword)
+    if helmet_detection==0:
+        request.session["violation_type"] = "helmet"
+        request.session["detection_keyword"] = detection_keyword
+        return redirect(f"/notify/")
     print(helmet_detection)
     # Run Shoes Detection Model
     # shoes_detection = run_model(r'..\..\11.jpg', r'..\..\pt\shoes.pt', "no-shoes")
@@ -60,8 +60,9 @@ def notify(request):
     and displays the notification message on the website.
     """
     violation_type = request.session.get("violation_type", "mask")
-    image_filename = request.session.get("image_path")
-    absolute_image_path = os.path.join(settings.BASE_DIR, image_filename)
+    detection_keyword = request.session.get("detection_keyword")
+    folder_name = f'output_result/{detection_keyword}/'
+    absolute_image_path = get_latest_image(folder_name)
 
     # Fetch the customized messages for the detected violation
     messages = VIOLATION_MESSAGES.get(violation_type, VIOLATION_MESSAGES["mask"])  # Fallback to "mask"
@@ -98,7 +99,7 @@ def notify(request):
 
 def get_latest_image(folder_name):
     # Get all files in the folder
-    folder_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),"input_data")
+    folder_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),folder_name)
     files = glob.glob(os.path.join(folder_path, "*.*"))
     # Ensure files exist before finding the latest one
     if not files:
