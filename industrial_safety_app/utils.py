@@ -4,7 +4,7 @@ import pywhatkit
 import os
 from datetime import datetime
 from django.core.mail import EmailMessage
-
+import glob
 from industrial_safety_app import settings
 
 VIOLATION_MESSAGES = {
@@ -157,3 +157,14 @@ def send_whatsapp_message(recipient, caption, image_filename, key):
 
     except Exception as e:
         print(f"Error sending WhatsApp message: {e}")
+
+
+def get_latest_image(folder_name):
+    # Get all files in the folder
+    folder_path = os.path.join(settings.MEDIA_ROOT, folder_name)
+    files = glob.glob(os.path.join(folder_path, "*.*"))
+    # Ensure files exist before finding the latest one
+    if not files:
+        raise FileNotFoundError(f"No files found in the folder: {os.path.abspath(folder_path)}")
+    # Return the latest file path
+    return max(files, key=os.path.getmtime)
