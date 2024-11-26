@@ -1,6 +1,16 @@
+from django.http import request
 from django.shortcuts import render, redirect
 from .utils import *
 from .model_runner import *
+
+# Function to run model and check for violation
+def run_detection_model(image_path, model_path, detection_keyword, session_key):
+    detection_result = run_model(image_path, model_path, detection_keyword)
+    if detection_result == 0:  # Violation detected
+        request.session["violation_type"] = session_key
+        request.session["detection_keyword"] = detection_keyword
+        return True
+    return False
 
 def home(request):
     # Run Helmet Detection Model
@@ -10,22 +20,24 @@ def home(request):
         print(f"Latest image path: {image_path}")
     except FileNotFoundError as e:
          print(e)
+         return render(request, "error.html")  # Handle file not found
+
     detection_keyword="no-helmet"
     helmet_detection = run_model(image_path, r'..\..\pt\helmet.pt', detection_keyword)
     if helmet_detection==0:
-        request.session["violation_type"] = "helmet"
+        request.session["violation_type"] = "no-helmet"
         request.session["detection_keyword"] = detection_keyword
         return redirect(f"/notify/")
     print(helmet_detection)
 
     # Run Shoes Detection Model
-    detection_keyword="no-shoes"
-    shoes_detection = run_model(image_path, r'..\..\pt\shoes.pt', detection_keyword)
-    if shoes_detection == 0:
-        request.session["violation_type"] = "shoes"
-        request.session["detection_keyword"] = detection_keyword
-        return redirect(f"/notify/")
-    print(shoes_detection)
+    # detection_keyword="no-shoes"
+    # shoes_detection = run_model(image_path, r'..\..\pt\shoes.pt', detection_keyword)
+    # if shoes_detection == 0:
+    #     request.session["violation_type"] = "shoes"
+    #     request.session["detection_keyword"] = detection_keyword
+    #     return redirect(f"/notify/")
+    # print(shoes_detection)
 
     return render(request, "index.html")
 
@@ -41,14 +53,14 @@ def notify(request):
     Handles the notifier view. Sends WhatsApp, email notifications,
     and displays the notification message on the website.
     """
-    violation_type = request.session.get("violation_type", "mask")
+    violation_type = request.session.get("violation_type", "no-mask")
     detection_keyword = request.session.get("detection_keyword")
 
     folder_name = os.path.join(settings.MEDIA_ROOT, 'output_result', detection_keyword)
     latest_image_path = get_latest_image(folder_name)
 
     # Fetch the customized messages for the detected violation
-    messages = VIOLATION_MESSAGES.get(violation_type, VIOLATION_MESSAGES["mask"])  # Fallback to "mask"
+    messages = VIOLATION_MESSAGES.get(violation_type, VIOLATION_MESSAGES["no-mask"])  # Fallback to "mask"
 
     email_subject = messages["email_subject"]
     email_message = messages["email_message"]
@@ -80,7 +92,3 @@ def notify(request):
     print(latest_image_path)
     # Render the notifier page with the notification
     return render(request, "notifier.html", context)
-
-
-
-

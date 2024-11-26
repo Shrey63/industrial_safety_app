@@ -8,7 +8,7 @@ import glob
 from industrial_safety_app import settings
 
 VIOLATION_MESSAGES = {
-    "mask": {
+    "no-mask": {
         "email_subject": "⚠️ Safety Alert: Mask Missing",
         "email_message": (
             "⚠️ Safety Alert: Mask Missing\n\n"
@@ -24,7 +24,7 @@ VIOLATION_MESSAGES = {
             "Ensure compliance immediately to avoid health risks such as respiratory issues or allergic reactions."
         ),
     },
-    "shoes": {
+    "no-shoes": {
         "email_subject": "⚠️ Safety Alert: Safety Shoes Missing",
         "email_message": (
             "⚠️ Safety Alert: Safety Shoes Missing\n\n"
@@ -39,7 +39,7 @@ VIOLATION_MESSAGES = {
             "Ensure compliance immediately to avoid serious risks."
         ),
     },
-    "gloves": {
+    "no-gloves": {
         "email_subject": "⚠️ Safety Alert: Gloves Missing",
         "email_message": (
             "⚠️ Safety Alert: Gloves Missing\n\n"
@@ -54,7 +54,7 @@ VIOLATION_MESSAGES = {
             "Ensure compliance immediately to avoid serious risks."
         ),
     },
-    "apron": {
+    "no-apron": {
         "email_subject": "⚠️ Safety Alert: Apron Missing",
         "email_message": (
             "⚠️ Safety Alert: Apron Missing\n\n"
@@ -69,7 +69,7 @@ VIOLATION_MESSAGES = {
             "Ensure compliance immediately to avoid potential injuries."
         ),
     },
-    "helmet": {
+    "no-helmet": {
         "email_subject": "⚠️ Safety Alert: Helmet Missing",
         "email_message": (
             "⚠️ Safety Alert: Helmet Missing\n\n"
