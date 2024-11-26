@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 MEDIA_URL = '/media/'  # URL to access media files in the browser
 MEDIA_ROOT = os.path.join(BASE_DIR, 'industrial_safety_app', 'media')  # Path to the 'media' directory
-MEDIA_ROOT_CHECKPOINT = os.path.join(BASE_DIR, 'checkpoint_detection_app', 'media')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 

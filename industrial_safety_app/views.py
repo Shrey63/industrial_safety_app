@@ -2,6 +2,7 @@ from django.http import request
 from django.shortcuts import render, redirect
 from .utils import *
 from .model_runner import *
+from checkpoint_detection_app.views import *
 
 # Function to run model and check for violation
 def run_detection_model(image_path, model_path, detection_keyword, session_key):

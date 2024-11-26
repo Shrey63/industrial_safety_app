@@ -2,6 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/checkpoint_detection_app/ml_models/yolov9" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/industrial_safety_app/ml_models/yolov9" vcs="Git" />
   </component>
 </project>

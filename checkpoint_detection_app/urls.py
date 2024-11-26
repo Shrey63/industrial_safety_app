@@ -15,18 +15,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from industrial_safety_app import views
 
 urlpatterns = [
-    path('', include('checkpoint_detection_app.urls')),
     path('admin/', admin.site.urls),
-    path('industrial_safety_app/', views.home, name='home'),
+    path('checkpoint_detection_app/', views.index, name='index'),
     path('success/', views.success, name='success'),  # URL for success page
     path('failure/', views.failure, name='failure'),  # URL for failure page
-    path('notify/', views.notify, name='notify'),    # URL for notify page
+
 ]
 
 if settings.DEBUG:  # Serve media files only in development
