@@ -25,7 +25,8 @@ urlpatterns = [
     path('checkpoint_detection_app/', views.index, name='index'),
     path('success/', views.success, name='success'),  # URL for success page
     path('failure/', views.failure, name='failure'),  # URL for failure page
-
+    path('process/', views.process, name='process'),  # URL for failure page
+    path('inprogress/', views.inprogress, name='inprogress'),  # URL for failure page
 ]
 
 if settings.DEBUG:  # Serve media files only in development

@@ -51,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'industrial_safety_app.urls'
@@ -82,6 +83,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.csrf',
+
             ],
         },
     },
@@ -89,7 +92,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'industrial_safety_app.wsgi.application'
 
-
+DATA_UPLOAD_MAX_MEMORY_SIZE = 104857600
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
@@ -119,6 +122,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+# Set the session cookie age (default is 300 seconds)
+SESSION_COOKIE_AGE = 3600  # 1 hour for testing
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
