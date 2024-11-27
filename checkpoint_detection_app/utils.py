@@ -162,9 +162,9 @@ def send_whatsapp_message(recipient, caption, image_filename, key):
 def get_latest_image(folder_name):
     # Get all files in the folder
     folder_path = os.path.join(settings.MEDIA_ROOT_CHECKPOINT, folder_name)
-    files = glob.glob(os.path.join(folder_path, "*.*"))
-    # Ensure files exist before finding the latest one
-    if not files:
-        raise FileNotFoundError(f"No files found in the folder: {os.path.abspath(folder_path)}")
+    # files = glob.glob(os.path.join(folder_path, "*.*"))
+    # # Ensure files exist before finding the latest one
+    # if not files:
+    #     raise FileNotFoundError(f"No files found in the folder: {os.path.abspath(folder_path)}")
     # Return the latest file path
-    return max(files, key=os.path.getmtime)
+    return folder_path

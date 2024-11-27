@@ -33,8 +33,12 @@ def run_model(source_image_path, weights_path, detection_keyword):
         process = subprocess.run(command, shell=True, capture_output=True, text=True)
 
         # Print the process output (for debugging)
+        print(process)
+        print('------------------------------')
         print(f"STDOUT:\n{process.stdout}")
+        print('------------------------------')
         print(f"STDERR:\n{process.stderr}")
+        print('------------------------------')
 
         # Check the output logs for detection results
         output = process.stdout
