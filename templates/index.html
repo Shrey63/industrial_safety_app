@@ -1,17 +1,262 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Upload Video</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shyam Global's Safety App</title>
+    <link rel="icon" href="{% static 'industrial_safety_app/logo.png' %}" type="image/png">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Background Image */
+        body {
+            background: url("{% static 'industrial_safety_app/bg.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+        }
+
+        /* Logo */
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            width: 80px;
+            height: auto;
+        }
+
+        /* Navbar Heading (Center) */
+        .navbar-heading {
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+            flex-grow: 1;
+            margin: 0;
+        }
+
+        /* Button */
+        .navbar-button {
+            background-color: #084cdf;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .navbar-button:hover {
+            background-color: #0d45a5;
+        }
+
+        /* Container Styling */
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 80px);
+            padding-top: 80px;
+        }
+
+        /* Form Section Styling */
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 60px rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            font-size: 1.125rem;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .form-title {
+            color: #000;
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .form-paragraph {
+            font-size: 0.9375rem;
+            color: rgb(105, 105, 105);
+            margin-bottom: 1rem;
+        }
+
+        .drop-container {
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            border: 2px dashed rgb(171, 202, 255);
+            color: #444;
+            cursor: pointer;
+            transition: background .2s ease-in-out, border .2s ease-in-out;
+        }
+
+        .drop-container:hover {
+            background: rgba(0, 140, 255, 0.164);
+            border-color: rgba(17, 17, 17, 0.616);
+        }
+
+        .drop-title {
+            color: #444;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            transition: color .2s ease-in-out;
+        }
+
+        #file-input {
+            width: 100%;
+            max-width: 350px;
+            color: #444;
+            padding: 2px;
+            background: #fff;
+            border-radius: 10px;
+            border: 1px solid rgba(8, 8, 8, 0.288);
+        }
+
+        #file-input::file-selector-button {
+            margin-right: 20px;
+            border: none;
+            background: #084cdf;
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            transition: background .2s ease-in-out;
+        }
+
+        #file-input::file-selector-button:hover {
+            background: #0d45a5;
+        }
+
+        .btn {
+            background-color: #084cdf;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            background-color: #0d45a5;
+            transform: scale(1.05);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Loader Styling */
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 8px solid #084cdf;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            display: none;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* About Us Section */
+        .about-us {
+            background-color: grey;
+            padding: 15px;
+            text-align: center;
+            color: white;
+            font-size: 1rem;
+        }
+    </style>
+    <script>
+        function showLoader() {
+            const loader = document.getElementById('loader');
+            loader.style.display = 'block';
+        }
+    </script>
 </head>
 <body>
-    <h1>Upload Video</h1>
-    <form method="POST" enctype="multipart/form-data" action="/process/">
-        {% csrf_token %}
-        <label for="id_video_file">Video File:</label>
-        <input type="file" name="video_file" id="id_video_file" accept="video/*" required>
-        <br>
-        <button type="submit">Upload</button>
-    </form>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo-container">
+            <img src="{% static 'industrial_safety_app/logo.png' %}" alt="Logo" class="logo">
+        </div>
+        <h1 class="navbar-heading">Shyam Global's Safety App</h1>
+        <button class="navbar-button">Button</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Form Section -->
+        <div class="form-container">
+            <form method="POST" enctype="multipart/form-data" action="/process/" onsubmit="showLoader()">
+                {% csrf_token %}
+                <span class="form-title">Upload your video</span>
+                <p class="form-paragraph">File should be a video (e.g., .mp4, .avi, .webm, .mov)</p>
+                <label for="file-input" class="drop-container">
+                    <span class="drop-title">Drop video files here</span>
+                    or
+                    <input type="file" name="video_file" accept="video/*" required id="file-input">
+                </label>
+                <button type="submit" class="btn">Submit</button>
+            </form>
+            <div id="loader" class="loader"></div>
+        </div>
+    </div>
+
+    <!-- About Us Section -->
+    <div class="about-us">
+        <h2>About Us</h2>
+        <p>Shyam Global is dedicated to ensuring safety and security through technology.</p>
+    </div>
 </body>
 </html>

@@ -147,7 +147,7 @@ def send_whatsapp_message(recipient, caption, image_filename, key):
         hour, minute = get_current_time()
 
         # Build the path to the static image
-        image_path = os.path.join(settings.BASE_DIR, 'industrial_safety_app', 'static', 'industrial_safety_app',
+        image_path = os.path.join(settings.BASE_DIR, 'checkpoint_detection_app', 'static', 'checkpoint_detection_app',
                                   image_filename)
 
         # Send the WhatsApp image with the caption

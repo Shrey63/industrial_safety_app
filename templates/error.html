@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: #000;
+            background: #f0f0f0; /* Background color */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .error-code {
+            font-size: 10rem; /* Large font for "404" */
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .message {
+            font-size: 1.5rem;
+            margin: 20px 0;
+        }
+
+        .home-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            color: white;
+            background-color: green;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .home-button:hover {
+            background-color: darkgreen;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="error-code">404</div>
+        <div class="message">The page you are looking for cannot be found.</div>
+        <!-- Update the `href` below to match your homepage's route -->
+        <a href="/index.html" class="home-button">Home</a>
+    </div>
+</body>
+</html>

@@ -10,7 +10,7 @@ glist = {'CPCBSticker',
          'Raingaurd',
          'efficientpowersticker',
          'doanddontsticker',
-         'warningsticker'
+         'warningsticker',
          'phonenumber',
          'doorhandle',
          'doorstopper',
@@ -55,7 +55,7 @@ def process(request):
         # response = redirect('success')  # Create a redirect response
         # response.set_cookie('context', json.dumps(context))  # Store context in a cookie
         # return response
-        return render('success.html',context)
+        return render(request,'success.html',context)
     else:
         diff=glist-s
         context = {

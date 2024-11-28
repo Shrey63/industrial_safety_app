@@ -4,136 +4,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Shyam Global's Safety App</title>
-    <link rel="icon" href="{% static 'industrial_safety_app/logo.png' %}" type="image/png">
-
+    <title>Industrial Safety System</title>
+    <link rel="icon" href="{% static 'industrial_safety_app/logo.png' %}">
     <style>
-        /* From Uiverse.io by uxRakhal */
+        :root {
+            --white: hsl(0, 0%, 100%);
+            --black: hsl(240, 15%, 9%);
+            --paragraph: hsl(0, 0%, 83%);
+            --line: hsl(240, 9%, 17%);
+            --primary: hsl(189, 92%, 58%);
+        }
 
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            background: var(--white);
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+        }
+
+        /* Logo */
         .logo-container {
-            text-align: center;
-            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
         }
 
         .logo {
-            width: 100px;
+            width: 80px;
             height: auto;
         }
 
-.image {
-  display: flex;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #e2feee;
-  flex-shrink: 0;
-  justify-content: center;
-  align-items: center;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 9999px;
-  animation: animate .6s linear alternate-reverse infinite;
-  transition: .6s ease;
-}
+        /* Navbar Heading */
+        .navbar-heading {
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+            flex-grow: 1;
+            margin: 0;
+        }
 
-.image svg {
-  color: #0afa2a;
-  width: 2rem;
-  height: 2rem;
-}
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+        /* Button */
+        .navbar-button {
+            background-color: #084cdf;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .navbar-button:hover {
+            background-color: #0d45a5;
+        }
+
+        /* Card Styling */
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 5rem; /* To adjust for navbar height */
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1.5rem;
+            width: 24rem;
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0.3));
+            border-radius: 1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        /* Unique class for changing color of one container */
+        .card.special-card {
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 255, 0, 0.3)); /* Change to green */
+        }
+
+        .card_title__container {
+            margin-bottom: 1rem;
+        }
+
+        .card_title {
+            font-size: 1.5rem;
+            color: var(--black);
+            font-weight: bold;
+        }
+
+        .card_paragraph {
+            font-size: 1rem;
+            color: black;
+        }
+
+        .line {
+            width: 100%;
+            height: 1px;
+            background-color: var(--line);
+            margin: 1rem 0;
+        }
+
+        .card__list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .card__list_item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Green Box with Tick (✔) */
+        .check-green {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: green;  /* Green background for checkmark */
+            border-radius: 50%;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .list_text {
+            color: var(--black);
+        }
+
+        .button {
+            padding: 10px;
+            border-radius: 9999px;
+            border: none;
+            background-color: var(--primary);
+            color: var(--white);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: darkblue;
+        }
+
+        /* Red Box with Cross (X) */
+        .check-red {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: red;  /* Red background for cross */
+            border-radius: 50%;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        /* Centering the green box */
+        .center-box {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-        }
-
-        .card {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            overflow: hidden;
-            position: relative;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .dismiss {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: #aaa;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-
-        .content {
-            margin-top: 20px;
-        }
-
-        .title {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #28a745;
-        }
-
-        .message {
-            font-size: 1rem;
-            color: #555;
-        }
-
-        .home-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .home-button:hover {
-            background-color: #0056b3;
+            width: 100%;
         }
     </style>
 </head>
 <body>
-
-    <div class="card">
-         <div class="logo-container">
-             <img src="{% static 'industrial_safety_app/logo.png' %}" alt="Logo" class="logo">
-{#            <h1 class="site-name">Industrial Safety System</h1>#}
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo-container">
+            <img src="{% static 'industrial_safety_app/logo.png' %}" alt="Logo" class="logo">
         </div>
-{#        <button class="dismiss" onclick="closeMessage()">×</button>#}
-        <div class="image">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 7L9.00004 18L3.99994 13" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-      </div>
-
-        <div class="content">
-            <h1 class="title">There are no check points missed!</h1>
-            <h1 class="title">{{ found }}</h1>
-            <p class="message">Your file has been uploaded successfully. You can proceed with your next action.</p>
-            <button class="home-button" onclick='window.location.href="home"'>Go to Homepage</button>
-        </div>
+        <h1 class="navbar-heading">Industrial Safety System</h1>
+        <button class="navbar-button" onclick="window.location.href='index.html';">Home</button>
     </div>
 
-    <script>
-        function closeMessage() {
-            document.querySelector('.card').style.display = 'none';
-        }
-    </script>
+    <!-- Cards Section -->
+    <div class="cards-container">
+        <!-- Second Card with Green Boxes (Checkmarks) for 'found' list -->
+        <div class="card special-card">
+            <div class="card_title__container">
+                <span class="card_title">POINTS CHECKED</span>
+                <p class="card_paragraph">Checkpoints Met.</p>
+            </div>
+            <hr class="line">
+            <ul class="card__list">
+                {% for item in found %}
+                <li class="card__list_item">
+                    <span class="check-green">✔</span>
+                    <span class="list_text">{{ item }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+            <button class="button">GENERATE REPORT</button>
+        </div>
+    </div>
 </body>
 </html>

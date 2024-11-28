@@ -21,192 +21,214 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column; /* Added column layout */
+            flex-direction: column;
             min-height: 100vh;
             background: var(--white);
             font-family: Arial, sans-serif;
         }
 
+        /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+        }
+
+        /* Logo */
         .logo-container {
             display: flex;
-            justify-content: center;
             align-items: center;
-            margin-bottom: 2rem; /* Added spacing between logo and card */
         }
 
         .logo {
-            width: 150px; /* Increased logo size */
+            width: 80px;
             height: auto;
         }
 
+        /* Navbar Heading */
+        .navbar-heading {
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+            flex-grow: 1;
+            margin: 0;
+        }
+
+        /* Button */
+        .navbar-button {
+            background-color: #084cdf;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .navbar-button:hover {
+            background-color: #0d45a5;
+        }
+
+        /* Card Styling */
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 5rem; /* To adjust for navbar height */
+        }
+
         .card {
-            position: relative;
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            padding: 1.5rem; /* Increased padding */
-            width: 24rem; /* Increased card width */
-            background-color: var(--white);
-            background-image: radial-gradient(
-                at 88% 40%,
-                var(--white) 0px,
-                transparent 85%
-            ),
-            radial-gradient(at 49% 30%, var(--white) 0px, transparent 85%),
-            radial-gradient(at 14% 26%, var(--white) 0px, transparent 85%),
-            radial-gradient(at 0% 64%, hsl(0, 78%, 50%) 0px, transparent 85%),
-            radial-gradient(at 41% 94%, hsl(0, 78%, 50%) 0px, transparent 85%),
-            radial-gradient(at 100% 99%, hsl(0, 78%, 40%) 0px, transparent 85%);
+            padding: 1.5rem;
+            width: 24rem;
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0.3));
             border-radius: 1rem;
-            box-shadow: 0px -16px 24px 0px rgba(255, 255, 255, 0.25) inset;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
 
-        .card__border {
-            overflow: hidden;
-            pointer-events: none;
-            position: absolute;
-            z-index: -10;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: calc(100% + 2px);
-            height: calc(100% + 2px);
-            background-image: linear-gradient(
-                0deg,
-                hsl(0, 0%, 100%) -50%,
-                hsl(0, 0%, 40%) 100%
-            );
-            border-radius: 1rem;
+        /* Unique class for changing color of one container */
+        .card.special-card {
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 255, 0, 0.3)); /* Change to green */
         }
 
-        .card_title__container .card_title {
-            font-size: 1.25rem; /* Increased title font size */
+        .card_title__container {
+            margin-bottom: 1rem;
+        }
+
+        .card_title {
+            font-size: 1.5rem;
             color: var(--black);
+            font-weight: bold;
         }
 
-        .card_title__container .card_paragraph {
-            margin-top: 0.25rem;
-            width: 75%; /* Increased paragraph width */
-            font-size: 0.875rem; /* Slightly larger paragraph text */
-            color: var(--black);
+        .card_paragraph {
+            font-size: 1rem;
+            color: black;
         }
 
         .line {
             width: 100%;
-            height: 0.1rem;
+            height: 1px;
             background-color: var(--line);
-            border: none;
+            margin: 1rem 0;
         }
 
         .card__list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem; /* Increased gap between list items */
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
 
         .card__list_item {
             display: flex;
             align-items: center;
-            gap: 0.75rem; /* Increased gap between icon and text */
+            gap: 1rem;
         }
 
-        .check {
+        /* Red Box with Cross (X) */
+        .check-red {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 1.25rem; /* Increased size of the circle */
-            height: 1.25rem;
-            background-color: red;
+            width: 20px;
+            height: 20px;
+            background-color: red;  /* Red background for cross */
             border-radius: 50%;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
         }
 
-        .check_svg {
-            width: 1rem; /* Adjusted SVG size */
-            height: 1rem;
-            fill: var(--black);
+        /* Green Box with Tick (✔) */
+        .check-green {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 20px;
+            height: 20px;
+            background-color: green;  /* Green background for checkmark */
+            border-radius: 50%;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
         }
 
         .list_text {
-            font-size: 1rem; /* Slightly larger list text */
             color: var(--black);
         }
 
         .button {
-            cursor: pointer;
-            padding: 0.75rem; /* Increased button padding */
-            width: 100%;
-            background-color: #FFFF;
-            font-size: 1rem; /* Increased button font size */
-            color: var(--black);
-            border: 0;
+            padding: 10px;
             border-radius: 9999px;
-            box-shadow: inset 0 -2px 25px -4px var(--white);
+            border: none;
+            background-color: var(--primary);
+            color: var(--white);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: darkblue;
         }
     </style>
 </head>
 <body>
-    <div class="logo-container">
-        <img src="{% static 'industrial_safety_app/logo.png' %}" alt="Logo" class="logo">
-    </div>
-    <div class="card">
-        <div class="card__border"></div>
-        <div class="card_title__container">
-            <span class="card_title">Keys to Success</span>
-            <p class="card_paragraph">Best way to be successful in your life.</p>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo-container">
+            <img src="{% static 'industrial_safety_app/logo.png' %}" alt="Logo" class="logo">
         </div>
-        <hr class="line" />
-        <ul class="card__list">
-            <li class="card__list_item">
-                <span class="check">
-                    <svg class="check_svg" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                        <path 
-                            clip-rule="evenodd" 
-                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" 
-                            fill-rule="evenodd">
-                        </path>
-                    </svg>
-                </span>
-                <span class="list_text">Set Clear Goals</span>
-            </li>
-            <li class="card__list_item">
-                <span class="check">
-                    <svg class="check_svg" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                        <path 
-                            clip-rule="evenodd" 
-                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" 
-                            fill-rule="evenodd">
-                        </path>
-                    </svg>
-                </span>
-                <span class="list_text">abcdef</span>
-            </li>
-            <li class="card__list_item">
-                <span class="check">
-                    <svg class="check_svg" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                        <path 
-                            clip-rule="evenodd" 
-                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" 
-                            fill-rule="evenodd">
-                        </path>
-                    </svg>
-                </span>
-                <span class="list_text">not found : {{ notfound }}</span>
-            </li>
-            <li class="card__list_item">
-                <span class="check">
-                    <svg class="check_svg" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                        <path 
-                            clip-rule="evenodd" 
-                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" 
-                            fill-rule="evenodd">
-                        </path>
-                    </svg>
-                </span>
-                <span class="list_text">{{ found }}</span>
-            </li>
-        </ul>
-          <button class="button">Start Now</button>
+        <h1 class="navbar-heading">Industrial Safety System</h1>
+        <button class="navbar-button" onclick="window.location.href='index.html';">Home</button>
+    </div>
+
+    <!-- Cards Container -->
+    <div class="cards-container">
+        <!-- First Card with Red Boxes (Crosses) for 'notfound' items -->
+        <div class="card">
+            <div class="card_title__container">
+                <span class="card_title">POINTS UNCHECKED</span>
+                <p class="card_paragraph">Checkpoints missed.</p>
+            </div>
+            <hr class="line">
+            <ul class="card__list">
+                {% for item in notfound %}
+                <li class="card__list_item">
+                    <span class="check-red">X</span>
+                    <span class="list_text">{{ item }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+            <button class="button">Learn More</button>
+        </div>
+
+        <!-- Second Card with Green Boxes (Checkmarks) for 'found' items -->
+        <div class="card special-card">
+            <div class="card_title__container">
+                <span class="card_title">POINTS CHECKED</span>
+                <p class="card_paragraph">Checkpoints Met.</p>
+            </div>
+            <hr class="line">
+            <ul class="card__list">
+                {% for item in found %}
+                <li class="card__list_item">
+                    <span class="check-green">✔</span>
+                    <span class="list_text">{{ item }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+            <button class="button">Learn More</button>
+        </div>
     </div>
 </body>
 </html>
-

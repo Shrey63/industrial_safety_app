@@ -1,5 +1,5 @@
 """
-URL configuration for industrial_safety_app project.
+URL configuration for checkpoint_detection_app project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
@@ -23,7 +23,7 @@ from industrial_safety_app import views
 urlpatterns = [
     path('', include('checkpoint_detection_app.urls')),
     path('admin/', admin.site.urls),
-    path('industrial_safety_app/', views.home, name='home'),
+    path('checkpoint_detection_app/', views.home, name='home'),
     path('success/', views.success, name='success'),  # URL for success page
     path('failure/', views.failure, name='failure'),  # URL for failure page
     path('notify/', views.notify, name='notify'),    # URL for notify page
