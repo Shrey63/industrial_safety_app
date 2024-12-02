@@ -19,7 +19,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 MEDIA_URL = '/media/'  # URL to access media files in the browser
 MEDIA_ROOT = os.path.join(BASE_DIR, 'industrial_safety_app', 'media')  # Path to the 'media' directory
-MEDIA_ROOT_CHECKPOINT = os.path.join(BASE_DIR, 'checkpoint_detection_app', 'media')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -41,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_beat'
 ]
 
 MIDDLEWARE = [
@@ -87,7 +87,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'checkpoint_detection_app.wsgi.application'
 
 
 # Database
@@ -119,7 +118,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+CELERY_BEAT_SCHEDULE = {
+    'run-detection-every-5-minutes': {
+        'task': 'industrial_safety_app.tasks.run_detection_service',
+        'schedule': 5,
+         },
+}
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -140,6 +144,9 @@ STATICFILES_DIRS = [
     BASE_DIR / "industrial_safety_app/static",
 ]
 
+CELERY_BROKER_URL = 'http://127.0.0.1:8000/'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER='json'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -149,8 +156,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
-EMAIL_HOST_USER = 'srushti.johari@cumminscollege.in'
-EMAIL_HOST_PASSWORD ='tjsj vsbo aswu bgol'
+EMAIL_HOST_USER = 'industrialsafetyapp@gmail.com'
+EMAIL_HOST_PASSWORD ='gutc evcv lxzl rnyk'
 EMAIL_USE_TLS=True
+
+
 
 

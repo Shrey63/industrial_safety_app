@@ -1,4 +1,4 @@
-
+import cv2
 from cryptography.fernet import Fernet
 import pywhatkit
 import os
@@ -6,6 +6,57 @@ from datetime import datetime
 from django.core.mail import EmailMessage
 import glob
 from industrial_safety_app import settings
+
+glist={
+    "alternator_nameplate",
+    "battery",
+    "cable_entry_holes",
+    "control_panel_bidding",
+    "control_panel_number",
+    "control_panel_qr",
+    "coolant_tank",
+    "cpcb_sticker",
+    "danger_sticker",
+    "do_and_dont_stickers",
+    "document_folder",
+    "door_bidding",
+    "door_handle",
+    "door_stopper",
+    "earthing_stud",
+    "earthing_wire",
+    "efficient_power_sticker",
+    "emergency_button",
+    "engine_numberplate",
+    "exhaust_pipe",
+    "foam_sheets",
+    "fuel_gauge",
+    "fuel_tank",
+    "genset_nameplate",
+    "hinges",
+    "lifting_hook",
+    "mahindra_sticker",
+    "mcb_sticker",
+    "ok_tested",
+    "phone_number",
+    "powerol_sticker",
+    "raingaurd",
+    "shyam_global_sticker",
+    "warming_sticker",
+    "water_oil_level_check_sticker",
+    "yellow_mark"
+}
+tasks = [
+    {
+        "model_name": "Helmet Detection",
+        "detection_keyword": "no-helmet",
+        "model_path": r'..\..\pt\helmet.pt',
+    },
+    {
+        "model_name": "Shoes Detection",
+        "detection_keyword": "no-shoes",
+        "model_path": r'..\..\pt\shoes.pt',
+    }
+]
 
 VIOLATION_MESSAGES = {
     "no-mask": {
@@ -29,7 +80,8 @@ VIOLATION_MESSAGES = {
         "email_message": (
             "⚠️ Safety Alert: Safety Shoes Missing\n\n"
             "A safety violation has been detected: Safety shoes are missing.\n"
-            "Importance: Safety shoes prevent injuries from sharp objects, falling items, and slippery surfaces. "
+            "Importance: Safety shoes prevent injuries from sharp objects"
+            ", falling items, and slippery surfaces. "
             "Without proper footwear, there is a high risk of foot injuries, fractures, or slipping accidents.\n\n"
             "Action Required: Please ensure compliance immediately to maintain a safe working environment."
         ),
@@ -147,7 +199,7 @@ def send_whatsapp_message(recipient, caption, image_filename, key):
         hour, minute = get_current_time()
 
         # Build the path to the static image
-        image_path = os.path.join(settings.BASE_DIR, 'checkpoint_detection_app', 'static', 'checkpoint_detection_app',
+        image_path = os.path.join(settings.BASE_DIR, 'industrial_safety_app', 'static', 'industrial_safety_app',
                                   image_filename)
 
         # Send the WhatsApp image with the caption
@@ -168,3 +220,25 @@ def get_latest_image(folder_name):
         raise FileNotFoundError(f"No files found in the folder: {os.path.abspath(folder_path)}")
     # Return the latest file path
     return max(files, key=os.path.getmtime)
+
+def extract_frames(video_path, output_dir, interval=1):
+    # os.makedirs(output_dir, exist_ok=True)
+    video = cv2.VideoCapture(video_path)
+    fps = int(video.get(cv2.CAP_PROP_FPS))
+    frame_count = 0
+    saved_frame = 0
+
+    while video.isOpened():
+        ret, frame = video.read()
+        if not ret:
+            break
+        # Save frame every 'interval' seconds
+        if frame_count % (fps * interval) == 0:
+            frame_name = f"frame_{saved_frame}.jpg"
+            cv2.imwrite(os.path.join(output_dir, frame_name), frame)
+            saved_frame += 1
+        frame_count += 1
+
+    video.release()
+    print(f"Extracted {saved_frame} frames to {output_dir}")
+    return

@@ -21,12 +21,14 @@ from django.conf.urls.static import static
 from industrial_safety_app import views
 
 urlpatterns = [
-    path('', include('checkpoint_detection_app.urls')),
-    path('admin/', admin.site.urls),
-    path('checkpoint_detection_app/', views.home, name='home'),
+    path('checkpoint_detection_app/', views.index, name='index'),
+    path('industrial_safety_app/', views.home, name='home'),
     path('success/', views.success, name='success'),  # URL for success page
     path('failure/', views.failure, name='failure'),  # URL for failure page
-    path('notify/', views.notify, name='notify'),    # URL for notify page
+    path('process/', views.process, name='process'),  # URL for failure page
+    path('inprogress/', views.inprogress, name='inprogress'),  # URL for failure page
+    path('admin/', admin.site.urls),
+
 ]
 
 if settings.DEBUG:  # Serve media files only in development
