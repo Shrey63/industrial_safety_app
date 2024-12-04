@@ -1,0 +1,24 @@
+Date: 2/12/2024
+Time: 14:55
+Group ID: FJjIC6Bobxu5tXLub7wqiN
+Image: C:\Users\shrey\PycharmProjects\industrial_safety_app\industrial_safety_app\media\output_result\no-helmet\122_2024-12-02_14-55-12.jpg
+Caption: ⚠️ Safety Alert: Helmet MissingA violation has been detected: Helmets are crucial for head protection. Ensure compliance immediately to avoid severe head injuries or trauma.
+--------------------
+Date: 2/12/2024
+Time: 15:7
+Group ID: FJjIC6Bobxu5tXLub7wqiN
+Image: C:\Users\shrey\PycharmProjects\industrial_safety_app\industrial_safety_app\media\output_result\no-helmet\122_2024-12-02_15-06-58.jpg
+Caption: ⚠️ Safety Alert: Helmet MissingA violation has been detected: Helmets are crucial for head protection. Ensure compliance immediately to avoid severe head injuries or trauma.
+--------------------
+Date: 2/12/2024
+Time: 18:49
+Group ID: FJjIC6Bobxu5tXLub7wqiN
+Image: C:\Users\shrey\PycharmProjects\industrial_safety_app\industrial_safety_app\media\output_result\no-helmet\122_2024-12-02_18-49-33.jpg
+Caption: ⚠️ Safety Alert: Helmet MissingA violation has been detected: Helmets are crucial for head protection. Ensure compliance immediately to avoid severe head injuries or trauma.
+--------------------
+Date: 2/12/2024
+Time: 22:23
+Group ID: FJjIC6Bobxu5tXLub7wqiN
+Image: C:\Users\shrey\PycharmProjects\industrial_safety_app\industrial_safety_app\media\output_result\no-helmet\122_2024-12-02_22-23-28.jpg
+Caption: ⚠️ Safety Alert: Helmet MissingA violation has been detected: Helmets are crucial for head protection. Ensure compliance immediately to avoid severe head injuries or trauma.
+--------------------

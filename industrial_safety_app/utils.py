@@ -10,14 +10,14 @@ from industrial_safety_app import settings
 glist={
     "alternator_nameplate",
     "battery",
-    "cable_entry_holes",
+    "cabel_entry_holes",
     "control_panel_bidding",
     "control_panel_number",
     "control_panel_qr",
     "coolant_tank",
     "cpcb_sticker",
     "danger_sticker",
-    "do_and_dont_stickers",
+    "do_and_dont_sticker",
     "document_folder",
     "door_bidding",
     "door_handle",
@@ -41,7 +41,7 @@ glist={
     "powerol_sticker",
     "raingaurd",
     "shyam_global_sticker",
-    "warming_sticker",
+    "warning_sticker",
     "water_oil_level_check_sticker",
     "yellow_mark"
 }

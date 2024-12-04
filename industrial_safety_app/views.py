@@ -101,6 +101,7 @@ def process(request):
     print("---------------------done-------------------")
     if request.method == 'POST':
         video = request.FILES.get('video_file')
+        person_name= request.get('person_name')
         if not video:
             return render(request,"failure.html")  # Redirect to failure page if no video is provided
 
@@ -117,23 +118,27 @@ def process(request):
         for chunk in video.chunks():
             destination.write(chunk)
     print(folder_path)
-    extract_frames(video_path, folder_path, interval=1)
+    extract_frames(video_path, folder_path, interval=2)
 
     s=run_model_on_folder(folder_path, r'..\..\pt\Checkpoints.pt')
     print(s)
+    print(f'video name {video.name}')
     if len(s)==len(glist):
         context={
-            "found": list(s)
+            "dg_no": os.path.splitext(video.name)[0],
+            "found": list(s),
+            "uploaded_by":person_name
         }
-        # response = redirect('success')  # Create a redirect response
-        # response.set_cookie('context', json.dumps(context))  # Store context in a cookie
-        # return response
-        return render(request,'success.html',context)
+        request.session['context'] = context  # Store context in the session
+        return redirect('success')
+        # return render(request,'success.html',context)
     else:
         diff=glist-s
         context = {
             "notfound": list(diff),
-            "found":list(s)
+            "found":list(s),
+            "dg_no": os.path.splitext(video.name)[0],
+            "uploaded_by":person_name
         }
         print(glist)
         print("-------------------------------------------------------------")
@@ -141,24 +146,22 @@ def process(request):
         print("-------------------------------------------------------------")
         print(diff)
         print("-------------------------------------------------------------")
-        # response = redirect('failure')  # Create a redirect response
-        # response.set_cookie('context', json.dumps(context))  # Store context in a cookie
-        # return response
-        return render(request,"failure.html",context)
+        request.session['context'] = context  # Store context in the session
+        return redirect('failure')
+        # return render(request,"failure.html",context)
     return render(request, "index.html")
 
 def index(request):
     return  render(request, "index.html")
 def success(request):
-    context = request.COOKIES.get('context', '{}')  # Retrieve the cookie
-    context = json.loads(context)  # Load the context from the cookie
-    print(f"failure context: {context}")
+    context = request.session.get('context', {})  # Retrieve the context from the session
+    print(f"Success context: {context}")
     return render(request, "success.html", context)
 
+
 def failure(request):
-    context = request.COOKIES.get('context', '{}')  # Retrieve the cookie
-    context = json.loads(context)  # Load the context from the cookie
-    print(f"failure context: {context}")
+    context = request.session.get('context', {})  # Retrieve the context from the session
+    print(f"Failure context: {context}")
     return render(request, "failure.html", context)
 
 def inprogress(request):

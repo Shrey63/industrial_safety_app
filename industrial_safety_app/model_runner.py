@@ -111,7 +111,7 @@ def run_checkpoint_model(source_image_path, weights_path):
         original_dir = os.getcwd()
 
         # Change to the YOLOv9 directory
-        yolov9_dir = os.path.join("industrial_safety_app", "ml_models", "yolov9")
+        yolov9_dir = os.path.join("industrial_safety_app", "ml_models_checkpoint", "yolov9")
         os.chdir(yolov9_dir)
 
         # Run the YOLOv9 model using subprocess

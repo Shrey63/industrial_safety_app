@@ -202,7 +202,6 @@
         <h1 class="navbar-heading">Industrial Safety System</h1>
         <button class="navbar-button" onclick="window.location.href='index.html';">Home</button>
     </div>
-
     <!-- Cards Section -->
     <div class="cards-container">
         <!-- Second Card with Green Boxes (Checkmarks) for 'found' list -->
@@ -223,5 +222,67 @@
             <button class="button">GENERATE REPORT</button>
         </div>
     </div>
+<!-- Button to Download Report -->
+<button class="button" id="downloadReportBtn">Download Report</button>
+
+<!-- Include jsPDF Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+document.getElementById('downloadReportBtn').addEventListener('click', function () {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF(); // Default portrait orientation
+
+    // Title for the PDF
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(16);
+    doc.text("Industrial Safety Checkpoints Report", 20, 20);
+
+    // Metadata Section
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    doc.text("Uploaded By: {{ uploaded_by }}", 20, 30);
+    {#doc.text("Manufacturing Date: {{ manufacturing_date }}", 20, 40);#}
+    doc.text("Manufacturing Date: 12-04-2024", 20, 40);
+
+    // Timestamp Section
+    const currentDate = new Date();
+    const timestamp = "Timestamp: " + currentDate.toLocaleString(); // Generate readable timestamp
+    doc.text(timestamp, 20, 50);
+
+    // Ensure spacing for the next section
+    let startX = 20; // Initial horizontal position
+    let startY = 60; // Initial vertical position for Points Unchecked
+
+    // Points Unchecked Section
+    doc.setFontSize(14);
+    doc.text("POINTS UNCHECKED (Missed Checkpoints):", startX, startY);
+    startY += 10; // Move below the header
+
+    const checkedItems ={{ found|safe }}
+    const rowHeight = 10; // Height between rows
+    const pageHeight = doc.internal.pageSize.height; // Get page height
+    const marginBottom = 20; // Bottom margin to avoid cutting text
+
+
+    checkedItems.forEach((item, index) => {
+        // Check if there's enough space for the next row, else add a new page
+        if (startY + rowHeight > pageHeight - marginBottom) {
+            doc.addPage(); // Add a new page
+            startY = 20; // Reset to top margin on the new page
+        }
+        doc.text(`${index + 1}. ${item}`, startX, startY); // Add text
+        startY += rowHeight; // Move down for the next item
+    });
+
+    // Use the DG number for the filename
+    {#const dgNumber = {{ dg_number|safe }}; // Pass DG number from Django#}
+    const dgNumber = "{{ dg_no }}"
+    const reportName = `${dgNumber}.pdf`; // Final report name
+
+    // Save the PDF with the DG number as the filename
+    doc.save(reportName);
+});
+</script>
 </body>
 </html>
