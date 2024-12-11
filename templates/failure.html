@@ -25,20 +25,22 @@
             min-height: 100vh;
             background: var(--white);
             font-family: Arial, sans-serif;
+            box-sizing: border-box;
         }
-
-        /* Navbar Styling */
-        .navbar {
+.navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 10px 15px;
+            {#background-color: rgba(0, 0, 0, 0.7);#}
+            background-color:black;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            padding: 10px 20px;
-            background-color: rgba(0, 0, 0, 0.7);
             z-index: 100;
+            width: 100%;
+            {#border-radius: 0 0 15px 15px;#}
         }
 
         /* Logo */
@@ -48,7 +50,7 @@
         }
 
         .logo {
-            width: 80px;
+            width: 50px;
             height: auto;
         }
 
@@ -61,13 +63,14 @@
             margin: 0;
         }
 
-        /* Button */
         .navbar-button {
             background-color: #084cdf;
             color: white;
             padding: 10px 20px;
             border: none;
             border-radius: 10px;
+            font-weight: bold;
+            margin-right: 1.5rem;
             cursor: pointer;
         }
 
@@ -75,29 +78,30 @@
             background-color: #0d45a5;
         }
 
-        /* Card Styling */
         .cards-container {
             display: flex;
+            flex-direction: row;
             justify-content: center;
             gap: 2rem;
-            margin-top: 5rem; /* To adjust for navbar height */
+            margin-top: 2rem;
+            padding: 0 1rem;
+            width: 90%;
+            box-sizing: border-box;
+            margin-bottom: 2rem;
         }
 
         .card {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            padding: 1.5rem;
-            width: 24rem;
+            flex: 1;
+            max-width: 45%;
             background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0.3));
             border-radius: 1rem;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             text-align: center;
+            padding: 1.5rem;
         }
 
-        /* Unique class for changing color of one container */
         .card.special-card {
-            background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 255, 0, 0.3)); /* Change to green */
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 255, 0, 0.3));
         }
 
         .card_title__container {
@@ -105,9 +109,10 @@
         }
 
         .card_title {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: var(--black);
             font-weight: bold;
+            margin-bottom: 0.1rem;
         }
 
         .card_paragraph {
@@ -123,43 +128,39 @@
         }
 
         .card__list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             list-style: none;
             padding: 0;
             margin: 0;
+            gap: 1rem;
         }
 
         .card__list_item {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.5rem;
+            text-align: left;
         }
 
-        /* Red Box with Cross (X) */
+        .check-red, .check-green {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
         .check-red {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 20px;
-            height: 20px;
-            background-color: red;  /* Red background for cross */
-            border-radius: 50%;
-            color: white;
-            font-weight: bold;
-            font-size: 16px;
+            background-color: red;
         }
 
-        /* Green Box with Tick (✔) */
         .check-green {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 20px;
-            height: 20px;
-            background-color: green;  /* Green background for checkmark */
-            border-radius: 50%;
-            color: white;
-            font-weight: bold;
-            font-size: 16px;
+            background-color: green;
         }
 
         .list_text {
@@ -167,148 +168,200 @@
         }
 
         .button {
-            padding: 10px;
-            border-radius: 9999px;
+            padding: 11px;
+            border-radius: 9px;
             border: none;
-            background-color: var(--primary);
+            margin-top:7rem;
+            background-color: blue;
             color: var(--white);
-            font-size: 1rem;
+            font-size: .9rem;
             cursor: pointer;
+            font-weight: bold;
             transition: background-color 0.3s ease;
         }
+
         .button:hover {
             background-color: darkblue;
+        }
+
+        .about-us {
+            background-color: darkgreen;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        .about-us h2 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        .about-us p {
+            font-size: 1rem;
+            margin-top: 5px;
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
     <div class="navbar">
         <div class="logo-container">
-            <img src="{% static 'industrial_safety_app/logo.png' %}" alt="Logo" class="logo">
+            <img class="logo" src="{% static 'industrial_safety_app/logo.png' %}" alt="Logo">
         </div>
         <h1 class="navbar-heading">Industrial Safety System</h1>
-        <button class="navbar-button" onclick="window.location.href='index.html';">Home</button>
+        <button class="navbar-button" onclick="window.location.href='index.html';">HOME</button>
     </div>
-    
-    <script>console.log("{{ dg_no }}")</script>
-    
-    <!-- Cards Container -->
+
+     <button class="button" id="downloadReportBtn" >GENERATE REPORT</button>
+
     <div class="cards-container">
-        <!-- First Card with Red Boxes (Crosses) for 'notfound' items -->
         <div class="card">
             <div class="card_title__container">
                 <span class="card_title">POINTS UNCHECKED</span>
-                <p class="card_paragraph">Checkpoints missed.</p>
+{#                <p class="card_paragraph">Checkpoints missed.</p>#}
             </div>
-            <hr class="line">
-            <ul class="card__list">
-                {% for item in notfound %}
-                <li class="card__list_item">
-                    <span class="check-red">X</span>
-                    <span class="list_text">{{ item }}</span>
-                </li>
-                {% endfor %}
+            <ul class="card__list" id="uncheckedList">
+                <!-- Unchecked points will be dynamically populated here -->
             </ul>
-            
         </div>
-
-        <!-- Second Card with Green Boxes (Checkmarks) for 'found' items -->
         <div class="card special-card">
             <div class="card_title__container">
                 <span class="card_title">POINTS CHECKED</span>
-                <p class="card_paragraph">Checkpoints Met.</p>
+{#                <p class="card_paragraph">Checkpoints Met.</p>#}
             </div>
-            <hr class="line">
-            <ul class="card__list">
-                {% for item in found %}
-                <li class="card__list_item">
-                    <span class="check-green">✔</span>
-                    <span class="list_text">{{ item }}</span>
-                </li>
-                {% endfor %}
+            <ul class="card__list" id="checkedList">
+                <!-- Checked points will be dynamically populated here -->
             </ul>
-          
+{#             <div class="about-us">#}
+{#        <h2>About Us</h2>#}
+{#        <p>Shyam Global is dedicated to providing efficient power solutions while ensuring safety and reliability for our customers.</p>#}
+{#    </div> #}
+
         </div>
     </div>
-<!-- Button to Download Report -->
-<button class="button" id="downloadReportBtn">Download Report</button>
 
-<!-- Include jsPDF Library -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-<script>
-document.getElementById('downloadReportBtn').addEventListener('click', function () {
+    <script>
+ document.getElementById('downloadReportBtn').addEventListener('click', function () {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF(); // Default portrait orientation
 
-    // Title for the PDF
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(16);
-    doc.text("Industrial Safety Checkpoints Report", 20, 20);
+    // Logo Base64 String or URL
+    const logoUrl = "{% static 'industrial_safety_app/mahindra.jpg' %}";
 
-    // Metadata Section
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(12);
-    doc.text("Uploaded By: {{ uploaded_by }}", 20, 30);
-    {#doc.text("Manufacturing Date: {{ manufacturing_date }}", 20, 40);#}
-    doc.text("Manufacturing Date: 12-04-2024", 20, 40);
+    // Load the logo image
+    const logoWidth = 20; // Width of the logo in mm
+    const logoHeight = 15; // Height of the logo in mm
+    const marginLeft = 20; // Left margin for logo
+    const textOffset = marginLeft + logoWidth + 5; // Space for text after the logo
 
-    // Timestamp Section
-    const currentDate = new Date();
-    const timestamp = "Timestamp: " + currentDate.toLocaleString(); // Generate readable timestamp
-    doc.text(timestamp, 20, 50);
+    // Add Logo and Header Text
+    const addHeader = async () => {
+        const img = new Image();
+        img.src = logoUrl;
 
-    // Ensure spacing for the next section
-    let startX = 20; // Initial horizontal position
-    let startY = 60; // Initial vertical position for Points Unchecked
+        img.onload = function () {
+            doc.addImage(img, 'PNG', marginLeft, 14, logoWidth, logoHeight); // Add logo at (x, y)
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(14);
+            doc.text("Industrial Safety Checkpoints Report", textOffset, 20); // Title beside logo
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(10);
+            doc.text("Ensuring Safety and Compliance", textOffset, 25); // Subtitle below title
 
-    // Points Unchecked Section
-    doc.setFontSize(14);
-    doc.text("POINTS UNCHECKED (Missed Checkpoints):", startX, startY);
-    startY += 10; // Move below the header
+            generateContent(); // Call the content generation after the header
+        };
+    };
 
-    const uncheckedItems = {{ notfound|safe }}; // Django variable for unchecked items
-    const checkedItems ={{ found|safe }}
-    const rowHeight = 10; // Height between rows
-    const pageHeight = doc.internal.pageSize.height; // Get page height
-    const marginBottom = 20; // Bottom margin to avoid cutting text
+    const generateContent = () => {
+        // Metadata Section
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(12);
+        doc.text("Uploaded By: {{ uploaded_by }}", 20, 50);
+        doc.text("Manufacturing Date: 12-04-2024", 20, 60);
 
-    // Loop through items and add text, moving to a new page if needed
-    uncheckedItems.forEach((item, index) => {
-        // Check if there's enough space for the next row, else add a new page
-        if (startY + rowHeight > pageHeight - marginBottom) {
-            doc.addPage(); // Add a new page
-            startY = 20; // Reset to top margin on the new page
-        }
-        doc.text(`${index + 1}. ${item}`, startX, startY); // Add text
-        startY += rowHeight; // Move down for the next item
-    });
-    startY += 10;
+        // Timestamp Section
+        const currentDate = new Date();
+        const timestamp = "Timestamp: " + currentDate.toLocaleString();
+        doc.text(timestamp, 20, 70);
 
-    // Points Checked Section
-    doc.setFontSize(14);
-    doc.text("POINTS CHECKED (Verified Checkpoints):", startX, startY);
-    startY += 10; // Move below the header
-    
-    checkedItems.forEach((item, index) => {
-        // Check if there's enough space for the next row, else add a new page
-        if (startY + rowHeight > pageHeight - marginBottom) {
-            doc.addPage(); // Add a new page
-            startY = 20; // Reset to top margin on the new page
-        }
-        doc.text(`${index + 1}. ${item}`, startX, startY); // Add text
-        startY += rowHeight; // Move down for the next item
-    });
-    
-    // Use the DG number for the filename
-    {#const dgNumber = {{ dg_number|safe }}; // Pass DG number from Django#}
-    const dgNumber = "{{ dg_no }}"
-    const reportName = `${dgNumber}.pdf`; // Final report name
+        let startX = 20; // Initial horizontal position
+        let startY = 80; // Start below the metadata
 
-    // Save the PDF with the DG number as the filename
-    doc.save(reportName);
+        // Points Checked Section
+        doc.setFontSize(14);
+         doc.setFont("helvetica", "bold"); // Set font to bold
+        doc.text("POINTS CHECKED (Verified Checkpoints):", startX, startY);
+        startY += 10;
+         doc.setFont("helvetica", "normal"); // Set font back to normal for the list
+        
+        const checkedItems = {{ found|safe }};
+        const uncheckedItems = {{ notfound|safe }};
+        const rowHeight = 10;
+        const pageHeight = doc.internal.pageSize.height;
+        const marginBottom = 20;
+
+        checkedItems.forEach((item, index) => {
+            if (startY + rowHeight > pageHeight - marginBottom) {
+                doc.addPage();
+                startY = 20;
+            }
+            doc.text(`${index + 1}. ${item}`, startX, startY);
+            startY += rowHeight;
+        });
+
+        // Points Unchecked Section
+        doc.setFontSize(14);
+         doc.setFont("helvetica", "bold"); // Set font to bold
+        doc.text("POINTS UNCHECKED (Unverified Checkpoints):", startX, startY);
+        startY += 10;
+         doc.setFont("helvetica", "normal"); // Set font back to normal for the list
+        uncheckedItems.forEach((item, index) => {
+            if (startY + rowHeight > pageHeight - marginBottom) {
+                doc.addPage();
+                startY = 20;
+            }
+            doc.text(`${index + 1}. ${item}`, startX, startY);
+            startY += rowHeight;
+        });
+
+        // Save the PDF
+        const dgNumber = "{{ dg_no }}";
+        const reportName = `${dgNumber}.pdf`;
+        doc.save(reportName);
+    };
+
+    addHeader();
 });
-</script>
+
+    // Use Django's safe filter to serialize the variables into JSON
+    const uncheckedItems = {{ notfound|safe }};
+    const checkedItems = {{ found|safe }};
+
+        const populateList = (listId, items, isChecked) => {
+            const list = document.getElementById(listId);
+            list.innerHTML = '';
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.classList.add('card__list_item');
+                const span = document.createElement('span');
+                span.classList.add(isChecked ? 'check-green' : 'check-red');
+                span.textContent = isChecked ? '✔' : 'X';
+                const text = document.createElement('span');
+                text.classList.add('list_text');
+                text.textContent = item;
+                li.appendChild(span);
+                li.appendChild(text);
+                list.appendChild(li);
+            });
+        };
+
+        populateList("uncheckedList", uncheckedItems, false);
+        populateList("checkedList", checkedItems, true);
+        
+
+    </script>
 </body>
 </html>

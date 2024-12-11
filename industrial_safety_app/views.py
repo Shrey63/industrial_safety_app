@@ -101,7 +101,7 @@ def process(request):
     print("---------------------done-------------------")
     if request.method == 'POST':
         video = request.FILES.get('video_file')
-        person_name= request.get('person_name')
+        person_name= request.POST.get('person_name')
         if not video:
             return render(request,"failure.html")  # Redirect to failure page if no video is provided
 

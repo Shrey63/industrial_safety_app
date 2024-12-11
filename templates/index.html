@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shyam Global's Safety App</title>
     <link rel="icon" href="{% static 'industrial_safety_app/logo.png' %}" type="image/png">
-    <style>
+   <style>
         /* General Reset */
         * {
             margin: 0;
@@ -15,29 +15,30 @@
         }
 
         body {
-            height: 100%;
             font-family: Arial, sans-serif;
-        }
-
-        /* Background Image */
-        body {
+            color: #333;
             background: url("{% static 'industrial_safety_app/bg.jpg' %}") no-repeat center center fixed;
             background-size: cover;
-            color: #333;
+            overflow: hidden; /* Prevent scrolling */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         /* Navbar Styling */
-        .navbar {
+       .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 10px 15px;
+            background-color: black;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            padding: 10px 20px;
-            background-color: rgba(0, 0, 0, 0.7);
             z-index: 100;
+            width: 100%;
+            {#border-radius: 0 0 15px 15px;#}
         }
 
         /* Logo */
@@ -47,11 +48,11 @@
         }
 
         .logo {
-            width: 80px;
+            width: 50px;
             height: auto;
         }
 
-        /* Navbar Heading (Center) */
+        /* Navbar Heading */
         .navbar-heading {
             color: white;
             font-size: 1.5rem;
@@ -60,28 +61,17 @@
             margin: 0;
         }
 
-        /* Button */
-        .navbar-button {
-            background-color: #084cdf;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        .navbar-button:hover {
-            background-color: #0d45a5;
-        }
-
         /* Container Styling */
         .container {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: calc(100vh - 80px);
-            padding-top: 80px;
+            min-height: 100vh;
+            padding-top: 60px; /* To avoid the navbar overlap */
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-bottom: 80px; /* Ensure space for the About Us section */
         }
 
         /* Form Section Styling */
@@ -91,7 +81,6 @@
             border-radius: 20px;
             padding: 2.5rem;
             text-align: center;
-            font-size: 1.125rem;
             max-width: 400px;
             width: 100%;
         }
@@ -107,6 +96,20 @@
             font-size: 0.9375rem;
             color: rgb(105, 105, 105);
             margin-bottom: 1rem;
+        }
+
+        .name-container label {
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .name-container input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgba(8, 8, 8, 0.288);
+            border-radius: 10px;
+            margin-top: 8px;
+            font-size: 1rem;
         }
 
         .drop-container {
@@ -134,7 +137,6 @@
             font-size: 20px;
             font-weight: bold;
             text-align: center;
-            transition: color .2s ease-in-out;
         }
 
         #file-input {
@@ -187,35 +189,109 @@
             transform: scale(0.98);
         }
 
-        /* Loader Styling */
-        .loader {
-            border: 8px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 8px solid #084cdf;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
+        #error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
             display: none;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
         }
 
         /* About Us Section */
         .about-us {
-            background-color: grey;
-            padding: 15px;
-            text-align: center;
+            background-color: darkgreen;
             color: white;
-            font-size: 1rem;
+            padding: 10px 0;
+            text-align: center;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
         }
+
+        .about-us h2 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .about-us p {
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+
+        /* Media Queries for Tablets */
+        @media (max-width: 768px) {
+            .navbar-heading {
+                font-size: 1.3rem;
+            }
+
+            .container {
+                padding-top: 90px;
+            }
+
+            .form-container {
+                padding: 2rem;
+                max-width: 350px;
+            }
+
+            .form-title {
+                font-size: 1.6rem;
+            }
+
+            .drop-title {
+                font-size: 18px;
+            }
+        }
+
+        /* Media Queries for Mobile Devices */
+        @media (max-width: 480px) {
+            .navbar-heading {
+                font-size: 1.2rem;
+            }
+
+            .container {
+                padding-top: 80px;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+                max-width: 90%;
+            }
+
+            .form-title {
+                font-size: 1.4rem;
+            }
+
+            .drop-title {
+                font-size: 16px;
+            }
+
+            #file-input::file-selector-button {
+                padding: 8px 16px;
+            }
+
+            .btn {
+                padding: 10px 20px;
+            }
+        }
+        .loader {
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid #084cdf;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    display: none; /* Initially hidden */
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
     </style>
     <script>
         function showLoader() {
@@ -230,10 +306,8 @@
         <div class="logo-container">
             <img src="{% static 'industrial_safety_app/logo.png' %}" alt="Logo" class="logo">
         </div>
-        <h1 class="navbar-heading">Shyam Global's Safety App</h1>
-        <button class="navbar-button">Button</button>
+        <h1 class="navbar-heading">Industrial Safety System</h1>
     </div>
-
     <!-- Main Content -->
     <div class="container">
         <!-- Form Section -->
@@ -241,7 +315,13 @@
             <form method="POST" enctype="multipart/form-data" action="/process/" onsubmit="showLoader()">
                 {% csrf_token %}
                 <span class="form-title">Upload your video</span>
-                <p class="form-paragraph">File should be a video (e.g., .mp4, .avi, .webm, .mov)</p>
+            <p class="form-paragraph">File should be a video (e.g., .mp4, .avi, .webm, .mov)</p>
+
+            <div class="name-container">
+                 <label for="name-input">Enter your name:</label>
+                <input type="text" id="name" name="person_name" placeholder="Enter your name" required>
+            </div>
+                &nbsp;
                 <label for="file-input" class="drop-container">
                     <span class="drop-title">Drop video files here</span>
                     or
@@ -256,7 +336,7 @@
     <!-- About Us Section -->
     <div class="about-us">
         <h2>About Us</h2>
-        <p>Shyam Global is dedicated to ensuring safety and security through technology.</p>
+        <p>Shyam Global is dedicated to providing efficient power solutions while ensuring safety and reliability for our customers.</p>
     </div>
 </body>
 </html>
